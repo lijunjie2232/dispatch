@@ -257,7 +257,7 @@ dependencies = [
 
 [[package]]
 name = "dispatch-proxy"
-version = "0.2.5-r1"
+version = "0.2.5"
 dependencies = [
  "async-trait",
  "clap",

@@ -1,6 +1,6 @@
 [package]
 name = "dispatch-proxy"
-version = "0.2.5-r1"
+version = "0.2.5"
 authors = ["lijunjie2232(Fork-er)"]
 edition = "2021"
 description = "[Fork] A SOCKS proxy that balances traffic between network interfaces."
