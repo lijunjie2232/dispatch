@@ -1,12 +1,12 @@
 [package]
 name = "dispatch-proxy"
-version = "0.2.4"
-authors = ["Alexandre Kirszenberg <alex@kirszenberg.com>"]
+version = "0.2.5-r1"
+authors = ["lijunjie2232(Fork-er)"]
 edition = "2021"
-description = "A SOCKS proxy that balances traffic between network interfaces."
+description = "[Fork] A SOCKS proxy that balances traffic between network interfaces."
 license = "MIT OR Apache-2.0"
 keywords = ["SOCKS", "proxy", "dispatch", "network", "interface"]
-repository = "https://github.com/alexkirsz/dispatch"
+repository = "https://github.com/lijunjie2232/dispatch"
 
 [[bin]]
 path = "src/main.rs"
@@ -21,7 +21,7 @@ inherits = "release"
 lto = "thin"
 
 [dependencies]
-socksv5 = { version = "0.3", features = ["tokio"], default-features = false }
+socksv5 = { version = "0.3.1", features = ["tokio"], default-features = false }
 tracing = "0.1"
 tracing-futures = "0.2"
 tracing-subscriber = "0.3"
