@@ -1,5 +1,7 @@
 # dispatch
 
+Forked from [https://github.com/alexkirsz/dispatch)](https://github.com/alexkirsz/dispatch)
+
 A SOCKS proxy that balances traffic between network interfaces.
 
 _Works on macOS, Windows, and Linux._
@@ -12,7 +14,6 @@ This is a Rust rewrite of [dispatch-proxy](https://github.com/alexkirsz/dispatch
   - [Quick links](#quick-links)
   - [Installation](#installation)
     - [From pre-built binaries](#from-pre-built-binaries)
-    - [From crates.io](#from-cratesio)
   - [Rationale](#rationale)
   - [Use cases](#use-cases)
   - [Usage](#usage)
@@ -25,15 +26,7 @@ This is a Rust rewrite of [dispatch-proxy](https://github.com/alexkirsz/dispatch
 
 ### From pre-built binaries
 
-You can download pre-built binaries for macOS, Windows, and Linux from the [releases page](https://github.com/alexkirsz/dispatch/releases).
-
-### From crates.io
-
-You'll need Rust version 1.51.0 or later. You can use [rustup](https://rustup.rs/) to install the latest version of the Rust compiler toolchain.
-
-```
-cargo install dispatch-proxy
-```
+You can download pre-built binaries for macOS, Windows, and Linux from the [releases page](https://github.com/lijiunjie2232/dispatch/releases).
 
 ## Rationale
 
@@ -136,6 +129,15 @@ $ dispatch balance 10.0.0.0/7 10.0.0.1/3
 ```
 
 Dispatch incoming connections to `10.0.0.0` 7 times out of 10 and to `10.0.0.1` 3 times out of 10.
+
+```
+❯ ./target/release/dispatch balance -c ./dispatch.yaml
+SOCKS proxy started on 127.0.0.1:8081
+...
+```
+
+Dispatch incoming connections to the network interfaces specified in the configuration file.
+
 
 ## How It Works
 
