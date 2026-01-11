@@ -8,13 +8,18 @@ This is a Rust rewrite of [dispatch-proxy](https://github.com/alexkirsz/dispatch
 
 ## Quick links
 
-- [Installation](#installation)
-- [Rationale](#rationale)
-- [Use Cases](#use-cases)
-- [Usage](#usage)
-- [Examples](#examples)
-- [How It Works](#how-it-works)
-- [License](#license)
+- [dispatch](#dispatch)
+  - [Quick links](#quick-links)
+  - [Installation](#installation)
+    - [From pre-built binaries](#from-pre-built-binaries)
+    - [From crates.io](#from-cratesio)
+  - [Rationale](#rationale)
+  - [Use cases](#use-cases)
+  - [Usage](#usage)
+    - [Configuration File](#configuration-file)
+  - [Examples](#examples)
+  - [How It Works](#how-it-works)
+      - [License](#license)
 
 ## Installation
 
@@ -49,15 +54,15 @@ The possibilities are endless:
 ## Usage
 
 ```
-$ dispatch
-A SOCKS proxy that balances traffic between network interfaces.
+❯ ./target/release/dispatch -h
+[Fork] A SOCKS proxy that balances traffic between network interfaces.
 
 Usage: dispatch [OPTIONS] <COMMAND>
 
 Commands:
-  list   Lists all available network interfaces
-  start  Starts the SOCKS proxy server
-  help   Print this message or the help of the given subcommand(s)
+  list     Lists all available network interfaces
+  balance  Starts the SOCKS proxy server
+  help     Print this message or the help of the given subcommand(s)
 
 Options:
   -d, --debug    Write debug logs to stdout instead of a file
@@ -66,19 +71,51 @@ Options:
 ```
 
 ```
-$ dispatch start -h
+❯ ./target/release/dispatch balance -h
 Starts the SOCKS proxy server
 
-Usage: dispatch start [OPTIONS] <ADDRESSES>...
+Usage: dispatch balance [OPTIONS] --config <CONFIG> [ADDRESSES]...
 
 Arguments:
-  <ADDRESSES>...  The network interface IP addresses to dispatch to, in the form of <address>[/priority]
+  [ADDRESSES]...  The network interface IP addresses to dispatch to, in the form of <address>[/priority]
 
 Options:
-      --ip <IP>      Which IP to accept connections from [default: 127.0.0.1]
-      --port <PORT>  Which port to listen to for connections [default: 1080]
-  -h, --help         Print help
+  -i, --ip <IP>          Which IP to accept connections from [default: 127.0.0.1]
+  -p, --port <PORT>      Which port to listen to for connections [default: 1080]
+  -c, --config <CONFIG>  
+  -h, --help             Print help
 ```
+
+### Configuration File
+
+A configuration file could be used to specify network interface addresses instead of providing them directly on the command line. The configuration file is in YAML format, with the default path being [./dispatch.yaml](file:///home/li/route/dispatch/dispatch.yaml).
+
+Configuration file example:
+
+```yaml
+ip: 127.0.0.1
+port: 1080
+# Example configuration file
+addresses:
+  - "192.168.1.100/3"  # High priority
+  - "192.168.1.101"    # Default priority (1)
+  - "10.0.0.1/2"       # Medium priority
+```
+
+Creating your own configuration file by copying the [dispatch.yaml.example](file:///home/li/route/dispatch/dispatch.yaml.example) file and modifying it:
+
+```bash
+cp dispatch.yaml.example dispatch.yaml
+# Edit the dispatch.yaml file to add your network interfaces
+```
+
+Start the proxy server using the configuration file:
+
+```bash
+dispatch balance --config ./dispatch.yaml
+```
+
+If both command-line addresses and a configuration file are provided, the command-line addresses will take precedence.
 
 ## Examples
 
@@ -89,13 +126,13 @@ $ dispatch list
 Lists all available network interfaces.
 
 ```
-$ dispatch start 10.0.0.0 fdaa:bbcc:ddee:0:1:2:3:4
+$ dispatch balance 10.0.0.0 fdaa:bbcc:ddee:0:1:2:3:4
 ```
 
 Dispatch incoming connections to local addresses `10.0.0.0` and `fdaa:bbcc:ddee:0:1:2:3:4`.
 
 ```
-$ dispatch start 10.0.0.0/7 10.0.0.1/3
+$ dispatch balance 10.0.0.0/7 10.0.0.1/3
 ```
 
 Dispatch incoming connections to `10.0.0.0` 7 times out of 10 and to `10.0.0.1` 3 times out of 10.
