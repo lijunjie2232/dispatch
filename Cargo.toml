@@ -44,6 +44,8 @@ directories = "6"
 percent-encoding = "2"
 term-table = "1"
 sysinfo = "0.34"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
 
 # Config for 'cargo dist'
 [workspace.metadata.dist]
