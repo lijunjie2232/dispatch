@@ -1,6 +1,6 @@
 # dispatch
 
-Forked from [https://github.com/alexkirsz/dispatch)](https://github.com/alexkirsz/dispatch)
+Forked from [https://github.com/alexkirsz/dispatch](https://github.com/alexkirsz/dispatch)
 
 A SOCKS proxy that balances traffic between network interfaces.
 
